@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: "AIzaSyBUUO8FFAgaGxmK_wyIWU96RtUFxOcEhwA",
+  apiKey: "AIzaSyBUUUO8FFAgaGxmK_wyIWU96RtUFxOcEhwA",
   authDomain: "zednationmusic.firebaseapp.com",
   projectId: "zednationmusic",
   storageBucket: "zednationmusic.firebasestorage.app",

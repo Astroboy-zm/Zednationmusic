@@ -1,54 +1,26 @@
-# Zednationmusic — READY Firebase package
+# Zednationmusic — Firebase + Cloudinary
 
-Your Firebase Web App configuration is already inserted.
+This version removes Firebase Storage, so you do not need a Firebase billing card for MP3 storage.
 
-## Upload to GitHub
-Upload all files to the ROOT of your GitHub Pages repository:
-- index.html
-- admin.html
-- app.js
-- admin.js
-- firebase-config.js
-- style.css
-- firestore.rules
-- storage.rules
-- robots.txt
-- sitemap.xml
+Cloudinary currently offers a Free plan with no credit card required and supports upload APIs/widgets. It can accept direct browser uploads using an unsigned upload preset.
 
-## One-time Firebase setup
-The website code is ready, but Firebase must have these services enabled:
+## Cloudinary setup
+1. Create a free Cloudinary account.
+2. Find your Cloud Name.
+3. Go to Settings -> Upload -> Upload presets -> Add upload preset.
+4. Set the preset to **Unsigned**.
+5. Restrict it to the `zednationmusic/audio` folder and audio files/size limits where available.
+6. Copy the preset name.
+7. Put both values into `cloudinary-config.js`.
 
-1. Authentication → Sign-in method → Email/Password → Enable.
-2. Authentication → Users → Add user. Create the email/password you will use for the admin page.
-3. Firestore Database → Create database.
-4. Storage → Get started.
-5. Firestore Rules → paste firestore.rules and publish.
-6. Storage Rules → paste storage.rules and publish.
+Do NOT put a Cloudinary API Secret in GitHub.
 
-## Make your account an admin
-After creating the admin user, copy the user's UID from Firebase Authentication.
+## Firebase
+Keep your existing Firebase Authentication, Firestore, and adminUsers document.
+Publish `firestore.rules` in Firestore Rules.
 
-In Firestore, create a collection named:
-adminUsers
+## Admin upload
+After adding the Cloudinary values, upload these files to GitHub. Open `/admin.html`, log in with your Firebase admin account, choose an audio file, and upload it. The audio URL is saved in Firestore and displayed on the public music page.
 
-Create a document whose Document ID is exactly that user's UID.
-
-You can leave the document empty.
-
-This is important: the security rules only allow users listed in adminUsers to upload/delete music or read messages.
-
-## Upload music
-Open:
-YOUR-GITHUB-PAGES-URL/admin.html
-
-Log in with the Firebase admin account and upload your MP3/audio file.
-
-The audio is stored in Firebase Storage and the song information is stored in Firestore. It then appears automatically on the public music page.
-
-## Google
-The package includes robots.txt and sitemap.xml. Before submitting the sitemap, replace the placeholder GitHub Pages address in both files with your actual site address.
-
-Then use Google Search Console to submit the sitemap and request indexing. Google decides when the page appears in search results; indexing is not guaranteed to be immediate.
-
-## Security note
-The Firebase Web API key in firebase-config.js is a client-side identifier, not a password. Security comes from Firebase Authentication and Security Rules. Never put an admin password or private service-account key in the website files.
+## Important
+Unsigned upload presets can be abused by anyone who discovers the preset name. Keep the preset restricted and monitor usage. For a larger production service, use signed server-side uploads.
